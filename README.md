@@ -6,3 +6,5 @@
 **Migrate Data:** Clean, organize and auto populate spreadsheet using VLOOKUP.
 
 **Data Cleaner:** Combine rows if they contatin same item type
+
+**Launch App:** 
