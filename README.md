@@ -7,4 +7,4 @@
 
 **Data Cleaner:** Combine rows if they contatin same item type
 
-**Launch App:** 
+**Launch App:**  Compare ComboBox-Selection with the specified range in a desired worksheet and copy-paste the entire row  into TextBox if the value matches.
