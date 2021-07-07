@@ -14,7 +14,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public Sub UserForm_Initialize()
-   Me.CSA_hostID.Value = Environ("UserName")
+   Me.hostID.Value = Environ("UserName")
    Me.CSA_username.Value = Application.username
 End Sub
 
