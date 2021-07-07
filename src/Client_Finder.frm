@@ -14,8 +14,8 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public Sub UserForm_Initialize()
-'     Me.CSA_username.Value = Environ("UserName")
-     Me.CSA_username.Value = Application.username
+   Me.CSA_hostID.Value = Environ("UserName")
+   Me.CSA_username.Value = Application.username
 End Sub
 
 ' This the code for Office Code drop down lists
