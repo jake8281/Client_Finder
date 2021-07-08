@@ -1,12 +1,13 @@
-Attribute VB_Name = "data_migrate"
 'This function is used to organize data, populate vlookup referencing multiple spreadsheets.
 'Created By Jake Ayoub 6/30/2021
-'Updated 7/2/2021
+'Updated 7/8/2021
 
 Sub data_migrate()
 
     Dim contact_maincsa As String
     Dim contact_backupcsa As String
+    Dim separator_rng As String
+    Dim ItemType_str As String
     
     Dim office_rng As String
     Dim contact_border As Range
@@ -29,8 +30,7 @@ Sub data_migrate()
         contact_maincsa = getColRangeFunction("main_csa")
         Range(contact_maincsa).Formula = "=VLOOKUP(A2,'monthly_source_csa'!$A$1:$C$76,2,0)"
         Range(contact_maincsa).Select
-        
-        
+              
         ' This is used to insert & populate the column with Vlookup referencing another worksheet
         Columns("C:C").Insert Shift:=xlToRight, CopyOrigin:=xlFormatFromRightOrBelow
         Range("C1").Value = "csa_backup"
@@ -47,8 +47,23 @@ Sub data_migrate()
         Range(office_rng).Formula = "=VLOOKUP(A2,'office_codes'!$A$1:$B$96,2,0)"
         Range(office_rng).Select
         
+        ' This is used to insert separator column with Chr(10) for later use
+        Columns("I:I").Insert Shift:=xlToRight, CopyOrigin:=xlFormatFromLeftOrBelow
+        Range("I1").Value = "separator"
+        
+        separator_rng = getColRangeFunction("separator")
+        With Range(separator_rng)
+            .FormulaR1C1 = "" & Chr(10) & ""
+        End With
+        
+        'This is used to adjust column width
+        ItemType_str = getColStr("item_type")
+        With Columns(ItemType_str)
+            .ColumnWidth = 56.43
+        End With
+        
         ' This is used to build colored borders around multiple ranges but it's not dynamic-needs improvement.
-        Set contact_border = Range("A1:H229")
+        Set contact_border = Range("A1:I229")
         With contact_border.Borders
             .LineStyle = xlContinuous
             .ColorIndex = 14 ' Navy border color
@@ -56,7 +71,7 @@ Sub data_migrate()
         End With
         
         ' This is used to custom color fill the first row
-        With Range("A1:H1")
+        With Range("A1:I1")
             With .Interior
                 .Pattern = xlSolid
                 .PatternColorIndex = xlAutomatic
@@ -71,7 +86,7 @@ Sub data_migrate()
         End With
         
         ' Add Filter to the worksheet  & Wrap text
-        silly_filter = Range("A1:H1").AutoFilter
+        silly_filter = Range("A1:I1").AutoFilter
         Cells.EntireColumn.AutoFit
     End With
     
@@ -119,7 +134,6 @@ Sub data_migrate()
         silly_filter = Range("A1:H1").AutoFilter
         Cells.EntireColumn.AutoFit
     End With
-
 End Sub
 
 
