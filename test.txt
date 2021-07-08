@@ -7,21 +7,18 @@
     Dim r As Range
     Dim row_str As String        
 
-
-For i = 2 To last_row
-            lookupVal = Cells(i, office_str)
-            ' Compare ComboBox with the range from the spreadsheet
-            If lookupVal = Office_Code Then
-                Set cell_rng = Rows(i & ":" & i)
-                For Each r In cell_rng.Row
-                   seperate_cells = cellsSeparator(r.SpecialCells(xlCellTypeConstants))
-                   If row_str = "" Then
-                    row_str = Join(cell_rng, Chr(10))
-                   Else
-                    row_str = row_str & vbLf & Join(cell_rng, Chr(10))
-                   End If
-                Next
-                Debug.Print row_str
-                Client_Finder.result.Text = Client_Finder.result.Text & vbLf & row_str
-            End If
-        Next i
+With Contacts
+    For i = 2 To last_row
+        Set cell_rng = Rows(i & ":" & i + 1)
+        For Each r In cell_rng.Rows
+           seperate_cells = cellsSeparator(r.SpecialCells(xlCellTypeConstants))
+           If row_str = "" Then
+            row_str = Join(cell_rng, Chr(10))
+           Else
+            row_str = row_str & vbLf & Join(cell_rng, Chr(10))
+           End If
+        Next
+        Debug.Print row_str
+        Client_Finder.result.Text = Client_Finder.result.Text & vbLf & row_str
+    Next i       
+End With
