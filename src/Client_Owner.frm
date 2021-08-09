@@ -23,7 +23,19 @@ End Sub
 
 ' This is used for combox box selection
 Public Sub company_name_Change()
-    company_name.List = Sheets(9).Range("A2:A76").Value
+   
+    Dim client_rng As String
+    
+    With monthly_source_csa
+        Application.ScreenUpdating = True
+        Worksheets("monthly_source_csa").Activate
+        Application.ScreenUpdating = False
+        
+        'This is used to get the last used row
+        client_rng = getColRangeFunction("csa_clients")
+        
+        company_name.List = Sheets(9).Range(client_rng).Value
+    End With
     
     ' This is used to make it searchable by within row.
     Dim n As Long
